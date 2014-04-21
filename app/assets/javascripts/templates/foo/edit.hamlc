@@ -1,0 +1,7 @@
+%h1 Edit Foo 
+.alert.alert-danger{style: 'display:none'} There was an error saving this model.
+%form{role: "form"}
+  .form-group
+    %label{for: "bar"} Bar 
+    %input#bar.form-control{placeholder: "Bar", name: "bar", value: @foo.bar}
+%button.btn.btn-default.save Save 

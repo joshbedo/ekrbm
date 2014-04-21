@@ -1,0 +1,19 @@
+%h1 Listing foos
+
+%table
+  %tr
+    %th Bar
+    %th
+    %th
+    %th
+
+  - @foos.each do |foo|
+    %tr
+      %td= foo.bar
+      %td= link_to 'Show', foo
+      %td= link_to 'Edit', edit_foo_path(foo)
+      %td= link_to 'Destroy', foo, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Foo', new_foo_path
