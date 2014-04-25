@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.0'
 
-gem 'sqlite3'
 
 gem 'sass-rails', '~> 4.0.0'
 
@@ -23,7 +22,11 @@ gem 'js-routes'
 
 gem 'bootstrap-sass', '~> 3.1.1'
 
+group :production do
+ gem 'pg'
+end
 group :development, :test do
+  gem 'sqlite3'
   gem 'rspec-rails', '~> 3.0.0.beta'
   gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git'
 end

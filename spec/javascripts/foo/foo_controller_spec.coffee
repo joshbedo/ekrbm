@@ -57,6 +57,22 @@ describe 'Foo.Controller', ()->
 
     it 'error is called', ()->
       expect(@controller.error).toHaveBeenCalled()
+
+  describe 'App.vent.trigger FOO:add', ()->
+    beforeEach ()->
+      spyOn @controller, 'add'
+      App.vent.trigger 'FOO:add'
+
+    it 'add is called', ()->
+      expect(@controller.add).toHaveBeenCalled()
+
+  describe 'App.vent.trigger FOO:delete', ()->
+    beforeEach ()->
+      spyOn @controller, 'delete'
+      App.vent.trigger 'FOO:delete', @model
+
+    it 'delete is called', ()->
+      expect(@controller.delete).toHaveBeenCalledWith @model
       
   ## method tests ##
 
@@ -71,6 +87,19 @@ describe 'Foo.Controller', ()->
       
     it 'fires the navigate event', ()->
       expect(App.vent.trigger).toHaveBeenCalledWith 'NAVIGATE', 'foos/list'
+
+  describe '#list', ()->
+    beforeEach ()->
+      spyOn App.main, 'show'
+      spyOn App.vent, 'trigger'
+      spyOn(@controller, '_fetchAll').andReturn ($.Deferred (d)=> d.resolve(new App.Collections.Foos [@model])).promise()
+      @controller.list()
+
+    it 'shows the list', ()->
+      expect(App.main.show).toHaveBeenCalledWith jasmine.any(App.Foo.Views.Foos)
+      
+    # it 'fires the navigate event', ()->
+      # expect(App.vent.trigger).toHaveBeenCalledWith 'NAVIGATE', "foos/#{@model.get('id')}"
 
   describe '#show', ()->
     beforeEach ()->
@@ -97,6 +126,18 @@ describe 'Foo.Controller', ()->
       
     it 'fires the navigate event', ()->
       expect(App.vent.trigger).toHaveBeenCalledWith 'NAVIGATE', (Routes.edit_foo_path @model.attributes)[1..-1] 
+
+  describe '#add', ()->
+    beforeEach ()->
+      spyOn App.main, 'show'
+      spyOn App.vent, 'trigger'
+      @controller.add()
+
+    it 'shows the view', ()->
+      expect(App.main.show).toHaveBeenCalledWith jasmine.any(App.Foo.Views.Edit)
+      
+    it 'fires the navigate event', ()->
+      expect(App.vent.trigger).toHaveBeenCalledWith 'NAVIGATE', Routes.new_foo_path()[1..-1] 
 
   describe '#save', ()->
     beforeEach ()->
@@ -126,3 +167,27 @@ describe 'Foo.Controller', ()->
 
       it 'shows an error message', ()->
         expect(App.vent.trigger).toHaveBeenCalledWith 'FOO:error'
+
+  describe '#delete', ()->
+    beforeEach ()->
+      spyOn App.vent, 'trigger'
+    
+    describe 'a successful delete', ()->
+      beforeEach ()->
+        spyOn(@controller, '_delete').andReturn ($.Deferred (d)=> d.resolve(@model)).promise()
+        @controller.delete(@model)
+
+      it 'triggers the NAVIGATE event', ()->
+        expect(App.vent.trigger).toHaveBeenCalledWith 'NAVIGATE', Routes.foos_path()[1..-1]
+
+      it 'triggers the FOO:list event', ()->
+        expect(App.vent.trigger).toHaveBeenCalledWith 'FOO:list'
+
+    describe 'an unsuccessful delete', ()->
+      beforeEach ()->
+        spyOn(@controller, '_delete').andReturn ($.Deferred (d)=> d.reject()).promise()
+        @controller.delete(@model)
+
+      it 'triggers the FOO:error event', ()->
+        expect(App.vent.trigger).toHaveBeenCalledWith 'FOO:error' 
+

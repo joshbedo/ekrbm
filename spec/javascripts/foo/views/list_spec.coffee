@@ -11,6 +11,15 @@ describe 'App.Foo.Views.Foos', ()->
 
     @view.render()
 
+  describe 'Clicking on the add button', ()->
+    beforeEach ()->
+      spyOn App.vent, 'trigger'
+      @view.ui.add.click()
+      
+    it 'fires the FOO:add event', ()->
+      expect(App.vent.trigger).toHaveBeenCalledWith 'FOO:add'
+      
+
   it 'displays all the items', ()->
     expect(@view.$el.html()).toContain 'john'
     expect(@view.$el.html()).toContain 'ringo'

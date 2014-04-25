@@ -6,10 +6,14 @@ describe 'App.Foo.Views.Show', ()->
     @view = new App.Foo.Views.Show
       model: @model
 
-    @view.render()
-      
+     
+    setFixtures @view.render().el
+
   it 'shows the bar property', ()->
     expect(@view.$el.html()).toContain @model.get('bar')
+
+  it 'error flag is not showing', ()->
+    expect(@view.ui.error).not.toBeVisible()
 
   describe 'clicking on the edit button', ()->
     beforeEach ()->
@@ -26,3 +30,18 @@ describe 'App.Foo.Views.Show', ()->
       
     it 'fires the FOO:show event with the model', ()->
       expect(App.vent.trigger).toHaveBeenCalledWith 'FOO:list'
+
+  describe 'clicking on the delete button', ()->
+    beforeEach ()->
+      spyOn App.vent, 'trigger'
+      @view.ui.delete.click()
+      
+    it 'fires the FOO:delete event', ()->
+      expect(App.vent.trigger).toHaveBeenCalledWith 'FOO:delete', @model
+
+  describe '#error', ()->
+    beforeEach ()->
+      @view.error()
+      
+    it 'error flag is visible', ()->
+      expect(@view.ui.error).toBeVisible()

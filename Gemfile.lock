@@ -72,6 +72,7 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.9.2)
+    pg (0.17.1)
     polyglot (0.3.4)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -150,6 +151,7 @@ DEPENDENCIES
   jasminerice!
   jquery-rails
   js-routes
+  pg
   rails (= 4.0.0)
   rspec-rails (~> 3.0.0.beta)
   sass-rails (~> 4.0.0)

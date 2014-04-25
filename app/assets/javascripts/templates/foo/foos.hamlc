@@ -1,2 +1,5 @@
 %h2 Foos
+%button.btn.btn-default.add 
+  %span.glyphicon.glyphicon-plus
+  Add 
 %ul

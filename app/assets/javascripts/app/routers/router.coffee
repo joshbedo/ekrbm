@@ -8,7 +8,9 @@ App.module 'Routers', (Routers, app)->
       '': ()->
         @fooList()
       'foos': ()->
-        @fooList
+        @fooList()
+      'foos/new': ()->
+        @fooAdd()
       'foos/:id': (id)->
         @fooShow(id)
       'foos/:id/edit': (id)->
@@ -20,6 +22,8 @@ App.module 'Routers', (Routers, app)->
       app.vent.trigger 'FOO:show', id 
     fooEdit: (id)->
       app.vent.trigger 'FOO:edit', id 
+    fooAdd: ()->
+      app.vent.trigger 'FOO:add'
 
   @on "start", ()->
     app.AppRouter = new Routers.Router()

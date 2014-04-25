@@ -14,17 +14,35 @@
         @empty()
       App.vent.on 'FOO:error', ()=>
         @error()
+      App.vent.on 'FOO:add', ()=>
+        @add()
+      App.vent.on 'FOO:delete', (model)=>
+        @delete model
     _fetch: (id)->
       deferred = $.Deferred (d)=>
         model = new app.Models.Foo({id: id})
         model.fetch().done ()->
           d.resolve(model)
       deferred.promise()
+    _fetchAll: ()->
+      coll = new App.Collections.Foos()
+      deferred = $.Deferred (d)=>
+        coll.fetch().done ()->
+          d.resolve(coll)
+      deferred.promise()
     _save: (model)->
       deferred = $.Deferred (d)=>
         promise = model.save()
         promise.done ()->
           d.resolve(model)
+        promise.fail ()->
+          d.reject()
+      deferred.promise()
+    _delete: (model)->
+      deferred = $.Deferred (d)=>
+        promise = model.destroy()
+        promise.done ()->
+          d.resolve()
         promise.fail ()->
           d.reject()
       deferred.promise()
@@ -43,6 +61,16 @@
       promise.fail ()->
         App.vent.trigger 'FOO:error'
 
+    delete: (model)->
+      promise = @_delete(model)
+
+      promise.done (res)->
+        App.vent.trigger 'FOO:list'
+        App.vent.trigger 'NAVIGATE', Routes.foos_path()[1..-1] 
+
+      promise.fail ()->
+        App.vent.trigger 'FOO:error'
+
     error: ()->
       app.main.currentView.error() if app.main.currentView.error
 
@@ -51,15 +79,21 @@
         app.main.show new Foo.Views.Edit
           model: model 
         app.vent.trigger 'NAVIGATE', "foos/#{model.get('id')}/edit"
+
     list: (collection)->
-      collection = new app.Collections.Foos()
-      promise = collection.fetch()
-      promise.done (data)->
+      @_fetchAll().done (coll)->
         app.main.show new Foo.Views.Foos
-          collection: collection 
+          collection: coll 
+        app.vent.trigger 'NAVIGATE', Routes.foos_path()[1..-1]
     empty: ()->
       app.main.show new Foo.Views.Empty()
       app.vent.trigger 'NAVIGATE', "foos/list"
+
+    add: ()->
+      model = new App.Models.Foo()
+      app.main.show new Foo.Views.Edit
+        model: model 
+      app.vent.trigger 'NAVIGATE', Routes.new_foo_path()[1..-1] 
       
   Foo.on 'start', ()->
     new Foo.Controller()

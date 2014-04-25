@@ -26,3 +26,11 @@ describe 'App.Routers.Router', ()->
     it 'triggers FOO:edit', ()->
       expect(App.vent.trigger).toHaveBeenCalledWith 'FOO:edit', 1
 
+  describe '#fooAdd', ()->
+    beforeEach ()->
+      spyOn App.vent, 'trigger'
+      @router.fooAdd()
+
+    it 'triggers FOO:add', ()->
+      expect(App.vent.trigger).toHaveBeenCalledWith 'FOO:add'
+

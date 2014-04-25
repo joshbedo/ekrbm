@@ -2,6 +2,7 @@ RailsBackboneJasmine::Application.routes.draw do
   get "foos", to: 'home#index', format: 'html'
   get "foos/:id", to: 'home#index', format: 'html'
   get "foos/:id/edit", to: 'home#index', format: 'html'
+  get "foos/new", to: 'home#index', format: 'html'
   resources :foos
 
   get "home/index"

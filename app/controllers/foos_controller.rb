@@ -24,30 +24,21 @@ class FoosController < ApplicationController
   # POST /foos
   def create
     @foo = Foo.new(foo_params)
-
-    if @foo.save
-      redirect_to @foo, notice: 'Foo was successfully created.'
-    else
-      render action: 'new'
-    end
+    @foo.save
+    render json: @foo
   end
 
   # PATCH/PUT /foos/1
   def update
-    # render json: @foo
     if @foo.update(foo_params)
       render json: @foo
     end
-      # redirect_to @foo, notice: 'Foo was successfully updated.'
-    # else
-      # render action: 'edit'
-    # end
   end
 
   # DELETE /foos/1
   def destroy
     @foo.destroy
-    redirect_to foos_url, notice: 'Foo was successfully destroyed.'
+    render json: {success: true}
   end
 
   private

@@ -1,8 +1,7 @@
 @App.module 'Models', (Models, app)->
   class Models.Foo extends Backbone.Model
-    defaults:
-      bar: 'bazz'
     url: ()->
+      return "/foos.json" if @isNew()
       "/foos/#{@get('id')}.json"
     toJSON: ()->
       attrs = _.clone(@attributes)

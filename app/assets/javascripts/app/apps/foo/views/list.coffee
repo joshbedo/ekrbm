@@ -7,6 +7,12 @@
         App.vent.trigger 'FOO:show', @model.get('id')
 
   class Views.Foos extends Marionette.CompositeView
+    ui:
+      add: '.add'
+    events:
+      'click .add': ()->
+        App.vent.trigger 'FOO:add'
+
     itemView: Views.Foo
     itemViewContainer: 'ul'
     template: JST['foo/foos']

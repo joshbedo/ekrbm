@@ -1,6 +1,7 @@
 describe 'App.Foo.Views.Foo', ()->
   beforeEach ()->
-    @model = new App.Models.Foo()
+    @model = new App.Models.Foo
+      bar: 'bizz'
     @view = new App.Foo.Views.Foo
       model: @model
 
