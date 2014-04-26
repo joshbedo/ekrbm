@@ -26,6 +26,7 @@ group :production do
  gem 'pg'
 end
 group :development, :test do
+  gem 'guard-jasmine'
   gem 'sqlite3'
   gem 'rspec-rails', '~> 3.0.0.beta'
   gem "jasminerice", :git => 'https://github.com/bradphelan/jasminerice.git'
