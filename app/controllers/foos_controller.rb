@@ -24,13 +24,13 @@ class FoosController < ApplicationController
   # POST /foos
   def create
     @foo = Foo.new(foo_params)
-    @foo.save
+    @foo.save!
     render json: @foo
   end
 
   # PATCH/PUT /foos/1
   def update
-    if @foo.update(foo_params)
+    if @foo.update!(foo_params)
       render json: @foo
     end
   end
