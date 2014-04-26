@@ -96,7 +96,7 @@ describe 'Foo.Controller', ()->
       @controller.list()
 
     it 'shows the list', ()->
-      expect(App.main.show).toHaveBeenCalledWith jasmine.any(App.Foo.Views.Foos)
+      expect(App.main.show).toHaveBeenCalledWith jasmine.any(App.Foo.Views.List)
       
     # it 'fires the navigate event', ()->
       # expect(App.vent.trigger).toHaveBeenCalledWith 'NAVIGATE', "foos/#{@model.get('id')}"

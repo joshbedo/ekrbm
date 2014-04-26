@@ -6,7 +6,7 @@ App.module 'Routers', (Routers, app)->
       super()
     routes:{
       '': ()->
-        @fooList()
+        @fooEmpty()
       'foos': ()->
         @fooList()
       'foos/new': ()->
@@ -16,6 +16,8 @@ App.module 'Routers', (Routers, app)->
       'foos/:id/edit': (id)->
         @fooEdit(id)
     }
+    fooEmpty: ()->
+      app.vent.trigger 'FOO:empty'
     fooList: ()->
       app.vent.trigger 'FOO:list'
     fooShow: (id)->

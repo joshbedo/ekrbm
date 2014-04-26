@@ -1,4 +1,4 @@
-describe 'App.Foo.Views.Foos', ()->
+describe 'App.Foo.Views.List', ()->
   beforeEach ()->
     @collection = new App.Collections.Foos [
       { bar: 'john'}
@@ -6,7 +6,7 @@ describe 'App.Foo.Views.Foos', ()->
       { bar: 'george'}
       { bar: 'paul'}
     ]
-    @view = new App.Foo.Views.Foos
+    @view = new App.Foo.Views.List
       collection: @collection
 
     @view.render()

@@ -82,12 +82,12 @@
 
     list: (collection)->
       @_fetchAll().done (coll)->
-        app.main.show new Foo.Views.Foos
+        app.main.show new Foo.Views.List
           collection: coll 
         app.vent.trigger 'NAVIGATE', Routes.foos_path()[1..-1]
     empty: ()->
       app.main.show new Foo.Views.Empty()
-      app.vent.trigger 'NAVIGATE', "foos/list"
+      app.vent.trigger 'NAVIGATE', ""
 
     add: ()->
       model = new App.Models.Foo()
