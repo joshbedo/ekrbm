@@ -18,6 +18,12 @@
         @add()
       App.vent.on 'FOO:delete', (model)=>
         @delete model
+      App.vent.on 'FOO:listDetail', ()=>
+        @_fetchAll().done (coll)->
+          app.main.show new App.Foo.Layouts.ListDetail
+            collection: coll
+            model: coll.first()
+          app.vent.trigger 'NAVIGATE', 'foo/list/detail'
     _fetch: (id)->
       deferred = $.Deferred (d)=>
         model = new app.Models.Foo({id: id})
@@ -85,6 +91,7 @@
         app.main.show new Foo.Views.List
           collection: coll 
         app.vent.trigger 'NAVIGATE', Routes.foos_path()[1..-1]
+
     empty: ()->
       app.main.show new Foo.Views.Empty()
       app.vent.trigger 'NAVIGATE', ""

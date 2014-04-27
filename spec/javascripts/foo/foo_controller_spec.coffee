@@ -73,6 +73,7 @@ describe 'Foo.Controller', ()->
 
     it 'delete is called', ()->
       expect(@controller.delete).toHaveBeenCalledWith @model
+
       
   ## method tests ##
 
@@ -86,7 +87,7 @@ describe 'Foo.Controller', ()->
       expect(App.main.show).toHaveBeenCalledWith jasmine.any(App.Foo.Views.Empty)
       
     it 'fires the navigate event', ()->
-      expect(App.vent.trigger).toHaveBeenCalledWith 'NAVIGATE', 'foos/list'
+      expect(App.vent.trigger).toHaveBeenCalledWith 'NAVIGATE', ''
 
   describe '#list', ()->
     beforeEach ()->
