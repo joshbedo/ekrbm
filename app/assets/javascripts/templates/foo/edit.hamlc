@@ -4,4 +4,7 @@
   .form-group
     %label{for: "bar"} Bar 
     %input#bar.form-control{placeholder: "Bar", name: "bar", value: @foo.bar}
+  .form-group
+    %label{for: "priority"} Priority 
+    %input#priority.form-control{placeholder: "", name: "priority", value: @foo.priority}
 %button.btn.btn-default.save Save 

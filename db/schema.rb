@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140423120959) do
+ActiveRecord::Schema.define(version: 20140502172609) do
 
   create_table "foos", force: true do |t|
     t.string   "bar"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "priority",   default: 0
   end
 
 end

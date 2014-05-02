@@ -15,6 +15,9 @@ describe 'App.Foo.Views.Show', ()->
   it 'error flag is not showing', ()->
     expect(@view.ui.error).not.toBeVisible()
 
+  it 'counter should be zero', ()->
+    expect(@view.ui.counter.html()).toEqual('0')
+
   describe 'clicking on the edit button', ()->
     beforeEach ()->
       spyOn App.vent, 'trigger'
@@ -45,3 +48,25 @@ describe 'App.Foo.Views.Show', ()->
       
     it 'error flag is visible', ()->
       expect(@view.ui.error).toBeVisible()
+
+  describe 'clicking on the + counter button', ()->
+    beforeEach ()->
+      @view.ui.plus.click()
+      
+    it 'counter value goes to one', ()->
+      expect(@view.ui.counter.html()).toEqual('1')
+
+  describe 'clicking on the - counter button', ()->
+    beforeEach ()->
+      spyOn @view, 'minus'
+      @view.ui.minus.click()
+      
+    it 'minus will be called', ()->
+      expect(@view.minus).toHaveBeenCalled()
+
+  describe 'clicking on the - counter button', ()->
+    beforeEach ()->
+      @view.minus()
+      
+    it 'counter is -1', ()->
+      expect(@view.ui.counter.html()).toEqual("-1")

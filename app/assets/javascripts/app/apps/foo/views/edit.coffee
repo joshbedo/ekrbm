@@ -7,9 +7,11 @@
       form: 'form'
       bar: '#bar'
       error: '.alert-danger'
+      priority: '#priority'
     error: ()->
       @ui.error.show()
     events:
       'click button.save':()->
         @model.set('bar', @ui.bar.val()) 
-        app.vent.trigger 'FOO:save', @model
+        @model.set('priority', @ui.priority.val()) 
+        app.vent.trigger 'FOO:save', @model if @model.isValid()

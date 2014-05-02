@@ -49,6 +49,6 @@ class FoosController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def foo_params
-      params.require(:foo).permit(:bar, :id)
+      params.require(:foo).permit(:bar, :id, :priority)
     end
 end

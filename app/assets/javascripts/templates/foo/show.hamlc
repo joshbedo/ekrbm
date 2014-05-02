@@ -2,6 +2,9 @@
 .alert.alert-danger{style: 'display:none'} There was an error deleting this model.
 %h1 Bar: 
   =@foo.bar
+.jumbotron.counter 0
 %button.btn.btn-default.edit Edit
 %button.btn.btn-default.back Back
 %button.btn.btn-default.delete Delete 
+%button.btn.btn-default.plus Plus 
+%button.btn.btn-default.minus Minus 

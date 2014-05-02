@@ -8,3 +8,9 @@
       delete attrs.created_at
       delete attrs.updated_at
       foo: attrs
+    validate: (attrs)->
+      errors = []
+      errors.push 'must be a number' if attrs.priority == '' || isNaN(attrs.priority)
+
+      if errors.length == 0 then false else errors
+
